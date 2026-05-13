@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muro de Mensajes</title>
+    <title>Buzón de Mensajes</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -13,35 +13,22 @@
     </nav>
 
     <main>
-        <h1>📜 Muro de Mensajes</h1>
+        <h1>📮 Deja tu mensaje</h1>
+        <p class="subtitulo">Escribe algo y lo verás en el muro.</p>
 
-        {% if mensajes %}
-            <p class="contador">Total de mensajes: {{ mensajes|length }}</p>
+        <div class="card">
+            <form action="/enviar" method="POST">
+                <label for="autor">Tu nombre</label>
+                <input type="text" id="autor" name="autor" required
+                       placeholder="¿Quién eres?">
+                <label for="juego">que juegas?</label>
+                <input type="text" id="juego" name="juego" required placeholder="ej: minecraft">
+                <label for="mensaje">Tu mensaje</label>
+                <textarea id="mensaje" name="mensaje" required
+                          placeholder="¿Qué quieres decir?" rows="4"></textarea>
 
-            <div class="muro">
-                {% for item in mensajes %}
-                    <div class="mensaje-card">
-                        <span class="num">#{{ loop.index }}</span>
-                        <p class="autor">{{ item.autor }}</p>
-                        <p class="texto">"{{ item.mensaje }}"</p>
-                        <div class="mensaje-card-footer">
-                            <form action="/eliminar/{{ loop.index0 }}" method="POST" style="display: inline;">
-                                <button type="submit" class="btn-peligro">🗑️ Borrar</button>
-                            </form>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <div class="vacio">
-                <span class="icono">📭</span>
-                <p class="mensaje">El muro está vacío. ¡Sé el primero en escribir!</p>
-                <a href="/" class="btn-secundario">📝 Escribir mensaje</a>
-            </div>
-        {% endif %}
-
-        <div class="acciones">
-            <a href="/" class="btn-secundario">📝 Escribir otro mensaje</a>
+                <button type="submit" class="btn-enviar">📨 Enviar al muro</button>
+            </form>
         </div>
     </main>
 
