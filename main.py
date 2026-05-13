@@ -39,3 +39,9 @@ async def muro(request: Request):
             "ano_actual": datetime.now().year,
         },
     )
+
+@app.post("/eliminar/{indice}")
+async def eliminar_mensaje(indice: int):
+    if 0 <= indice < len(mensajes_db):
+        mensajes_db.pop(indice)
+    return RedirectResponse(url="/muro", status_code=303)
